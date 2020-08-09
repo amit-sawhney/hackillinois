@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Grid } from '@material-ui/core';
 
-function App() {
+const useStyles = makeStyles({
+  root: {
+    textAlign: 'center',
+    margin: 'center'
+  }
+});
+
+const App = (props) => {
+  const classes = useStyles();
+  const [state, setState] = useState("Daniel");
+
+  const handleClick = (e) => {
+    if (state === "Daniel") setState("Amit");
+    if (state === "Amit") setState("Daniel");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <nav>
+        <Button onClick={handleClick}>Daniel is hot</Button>
+        <Button onClick={handleClick}>Get over here nick</Button>
+        <Button onClick={handleClick}>fuuuuuuck</Button>
+      </nav>
+      <h1>{state}</h1>
+      <Button onClick={handleClick}>Click me</Button>
+      {state === "Daniel" ? (
+        <h1>YOOOO WAZZUPPPP</h1>
+      ) : (
+          <h2 style={{ color: 'red' }}>AYYEEEEEE</h2>
+        )
+      }
     </div>
   );
 }
