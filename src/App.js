@@ -6,6 +6,7 @@ import BecomeMentor from './Components/BecomeMentor/BecomeMentor';
 import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
 import Contact from './Components/Contact/Contact';
+import Navbar from './Components/Navbar/Navbar';
 
 const useStyles = makeStyles({
   
@@ -17,6 +18,7 @@ const App = (props) => {
   return (
     <div>
       <Router>
+        <Navbar />
           <Switch>
             <Route exact path="/"><Home /></Route>
             <Route path="/findmentor"><FindMentor /></Route>
