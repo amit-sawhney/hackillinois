@@ -17,7 +17,6 @@ const App = (props) => {
   return (
     <div>
       <Router>
-        <div>
           <Switch>
             <Route exact path="/"><Home /></Route>
             <Route path="/findmentor"><FindMentor /></Route>
@@ -25,7 +24,6 @@ const App = (props) => {
             <Route path="/contact"><Contact /></Route>
             <Route path="/login"><Login /></Route>
           </Switch>
-        </div>
       </Router>
     </div>
   );
