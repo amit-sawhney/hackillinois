@@ -1,38 +1,32 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Grid } from '@material-ui/core';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import FindMentor from './Components/FindMentor/FindMentor';
+import BecomeMentor from './Components/BecomeMentor/BecomeMentor';
+import Login from './Components/Login/Login';
+import Home from './Components/Home/Home';
+import Contact from './Components/Contact/Contact';
 
 const useStyles = makeStyles({
-  root: {
-    textAlign: 'center',
-    margin: 'center'
-  }
+  
 });
 
 const App = (props) => {
   const classes = useStyles();
-  const [state, setState] = useState("Daniel");
-
-  const handleClick = (e) => {
-    if (state === "Daniel") setState("Amit");
-    if (state === "Amit") setState("Daniel");
-  }
 
   return (
-    <div className={classes.root}>
-      <nav>
-        <Button onClick={handleClick}>Daniel is hot</Button>
-        <Button onClick={handleClick}>Get over here nick</Button>
-        <Button onClick={handleClick}>fuuuuuuck</Button>
-      </nav>
-      <h1>{state}</h1>
-      <Button onClick={handleClick}>Click me</Button>
-      {state === "Daniel" ? (
-        <h1>YOOOO WAZZUPPPP</h1>
-      ) : (
-          <h2 style={{ color: 'red' }}>AYYEEEEEE</h2>
-        )
-      }
+    <div>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/"><Home /></Route>
+            <Route path="/findmentor"><FindMentor /></Route>
+            <Route path="/becomementor"><BecomeMentor /></Route>
+            <Route path="/contact"><Contact /></Route>
+            <Route path="/login"><Login /></Route>
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
