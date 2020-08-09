@@ -1,0 +1,13 @@
+.root{
+    background-image: url("../../images/handsin.png");
+    background-position: center;
+    background-size: cover;
+    height: 90vh;
+    
+}
+
+.below{
+    text-align: center;
+    padding: 20px;
+    font-family: sans-serif;
+}

@@ -8,7 +8,10 @@ const useStyles = makeStyles({
     root: {
         backgroundColor: '#002855',
         paddingBottom: '100px',
-        paddingTop: '40px'
+        paddingTop: '40px',
+        position: 'fixed',
+        width: '100%',
+        height: '0px',
     },
     appName: {
         fontSize: '40px',
@@ -36,6 +39,7 @@ const useStyles = makeStyles({
         paddingTop: '10px',
         color: 'white',
         textDecoration: 'none',
+        
     },
     profileIcon: {
         fontSize: '30px',
