@@ -7,6 +7,7 @@ import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
 import Contact from './Components/Contact/Contact';
 import Navbar from './Components/Navbar/Navbar';
+import {helmet, Helmet} from 'react-helmet';
 
 const useStyles = makeStyles({
   
@@ -18,6 +19,9 @@ const App = (props) => {
   return (
     <div>
       <Router>
+        <Helmet>
+          <title>Mentors Meet</title>
+        </Helmet>
         <Navbar />
           <Switch>
             <Route exact path="/"><Home /></Route>

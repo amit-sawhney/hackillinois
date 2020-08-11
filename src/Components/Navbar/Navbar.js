@@ -2,23 +2,27 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import ScrollToColor from "./ScrollToColor";
 
 
 const useStyles = makeStyles({
     root: {
         backgroundColor: '#002855',
-        paddingBottom: '100px',
-        paddingTop: '40px',
+        paddingBottom: '85px',
+        paddingTop: '0px',
         position: 'fixed',
         width: '100%',
-        height: '0px',
+        height: '0%',
+        position: 'fixed',
     },
     appName: {
+        marginRight: '60vh',
         fontSize: '40px',
         position: 'relative',
         float: 'left',
         textDecoration: 'none',
-        color: 'white',
+        color: 'black',
         marginLeft: '45px'
     },
     navItem: {
@@ -28,7 +32,7 @@ const useStyles = makeStyles({
         fontSize: '18px',
         position: 'static',
         float: 'right',
-        color: 'white',
+        color: 'black',
         '&:hover': {
             color: '#E84A27',
         }
@@ -45,7 +49,12 @@ const useStyles = makeStyles({
         fontSize: '30px',
         // marginTop: '10px',
         marginRight: '5px',
-    }
+    },
+    toolbarButtons: {
+        float: 'left',
+        },
+   
+    
 });
 
 
@@ -55,15 +64,18 @@ const Navbar = (props) => {
 
 
     return (
-        <div className={classes.root}>
-            <nav className={classes.navbar}>
-                <Link className={classes.appName} to="/">Mentors Meet</Link>
-                <Link className={classes.navItem} to="/login"><BsFillPersonFill className = {classes.profileIcon}/></Link>
-                <Link className={classes.navItem} to="/contact">Contact</Link>
+        <ScrollToColor>
+        <AppBar className={classes.root}>
+            <Toolbar className={classes.navbar}>
+            <Link className={classes.appName} to="/">Mentors Meet</Link> 
+                <Link className={classes.navItem} to="/findmentor"><Typography>Find a Mentor</Typography></Link>
                 <Link className={classes.navItem} to="/becomementor">Become a mentor</Link>
-                <Link className={classes.navItem} to="/findmentor">Find a Mentor</Link>
-            </nav>
-        </div>
+                <Link className={classes.navItem} to="/contact">Contact</Link>
+                <Link className={classes.navItem} to="/login"><BsFillPersonFill className = {classes.profileIcon}/></Link>
+                </Toolbar>
+        </AppBar>
+        </ScrollToColor>
+        
     );
 }
 

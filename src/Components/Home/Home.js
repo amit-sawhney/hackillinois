@@ -13,11 +13,12 @@ const Home = (props) => {
   return (
     <>
       <div class="root">
-
+        <h1>Find a mentor quickly!</h1>
       </div>
       <div class="below">
         <h1>What we are about!</h1>
-      </div>
+        <p>This is just some random words that eventually will be a description. More random stuff to take up space and let us see how scrolling looks on the page.This is just some random words that eventually will be a description. More random stuff to take up space and let us see how scrolling looks on the page.This is just some random words that eventually will be a description. More random stuff to take up space and let us see how scrolling looks on the page.This is just some random words that eventually will be a description. More random stuff to take up space and let us see how scrolling looks on the page.</p> 
+        </div>
     </>
   );
 }

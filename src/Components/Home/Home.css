@@ -11,3 +11,24 @@
     padding: 20px;
     font-family: sans-serif;
 }
+
+.below p{
+    position: absolute;
+    top: 108%;
+    width: 50%;
+}
+
+.below h1{
+    position: absolute;
+    left: 25%;
+    transform: translate(-50%, 0%);
+}
+
+.root h1{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 30%;
+    left: 60%;
+    font-size: 52px;
+}
