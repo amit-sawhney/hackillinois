@@ -10,7 +10,9 @@ import Navbar from './Components/Navbar/Navbar';
 import {helmet, Helmet} from 'react-helmet';
 
 const useStyles = makeStyles({
-  
+  root: {
+    margin: 'auto',
+  }
 });
 
 const App = (props) => {
@@ -23,13 +25,15 @@ const App = (props) => {
           <title>Mentors Meet</title>
         </Helmet>
         <Navbar />
-          <Switch>
+        <Switch>
+          <div className={classes.root}>
             <Route exact path="/"><Home /></Route>
             <Route path="/findmentor"><FindMentor /></Route>
             <Route path="/becomementor"><BecomeMentor /></Route>
             <Route path="/contact"><Contact /></Route>
             <Route path="/login"><Login /></Route>
-          </Switch>
+          </div>
+        </Switch>
       </Router>
     </div>
   );

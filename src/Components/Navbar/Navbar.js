@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         marginRight: '40px',
         marginTop: '10px',
         fontSize: '18px',
-        position: 'static',
+        position: 'relative',
         float: 'right',
         color: 'black',
         '&:hover': {
@@ -43,7 +43,10 @@ const useStyles = makeStyles({
         paddingTop: '10px',
         color: 'white',
         textDecoration: 'none',
-        
+    },
+    scrollNavbar: {
+        paddingTop: '50px',
+        paddingBottom: '20px',
     },
     profileIcon: {
         fontSize: '30px',
@@ -61,7 +64,9 @@ const useStyles = makeStyles({
 const Navbar = (props) => {
     const classes = useStyles();
 
-
+    const handleScroll = (e) => {
+        document.getElementById("navbar").setAttribute(classes.scrollNavbar);
+    }
 
     return (
         <ScrollToColor>
