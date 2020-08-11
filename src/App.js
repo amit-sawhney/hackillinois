@@ -24,7 +24,7 @@ const App = (props) => {
         <Helmet>
           <title>Mentors Meet</title>
         </Helmet>
-        <Navbar />
+        <Navbar />        
         <Switch>
           <div className={classes.root}>
             <Route exact path="/"><Home /></Route>

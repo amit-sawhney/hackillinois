@@ -32,7 +32,6 @@ const useStyles = makeStyles({
 const BecomeMentor = (props) => {
     const classes = useStyles();
 
-
     return (
         <div className={classes.root}>
             {/* <Paper className={classes.paper}> */}

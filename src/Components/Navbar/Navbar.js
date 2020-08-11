@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         position: 'fixed',
     },
     appName: {
-        marginRight: '60vh',
+        marginRight: '70vh',
         fontSize: '40px',
         position: 'relative',
         float: 'left',
@@ -55,32 +55,85 @@ const useStyles = makeStyles({
     },
     toolbarButtons: {
         float: 'left',
-        },
-   
-    
+    },
+    root1: {
+        backgroundColor: '#002855',
+        paddingBottom: '40px',
+        paddingTop: '20px',
+        position: 'sticky',
+        width: '100%',
+        height: '0%',
+    },
+    appName1: {
+        marginRight: '70vh',
+        fontSize: '40px',
+        position: 'relative',
+        float: 'left',
+        textDecoration: 'none',
+        color: 'white',
+        marginLeft: '45px'
+    },
+    navItem1: {
+        textDecoration: 'none',
+        marginRight: '40px',
+        marginTop: '10px',
+        fontSize: '18px',
+        position: 'relative',
+        float: 'right',
+        color: 'white',
+        '&:hover': {
+            color: '#E84A27',
+        }
+    }
 });
 
 
 const Navbar = (props) => {
     const classes = useStyles();
+    const [home, setHome] = useState(window.location.href.length < 23);
 
     const handleScroll = (e) => {
         document.getElementById("navbar").setAttribute(classes.scrollNavbar);
     }
 
+    const handleHome = e => {
+        setHome(true)
+    }
+
+    console.log(window.location.href);
+
+    const handleLeave = e => {
+        setHome(false);
+    }
+
     return (
-        <ScrollToColor>
-        <AppBar className={classes.root}>
-            <Toolbar className={classes.navbar}>
-            <Link className={classes.appName} to="/">Mentors Meet</Link> 
-                <Link className={classes.navItem} to="/findmentor"><Typography>Find a Mentor</Typography></Link>
-                <Link className={classes.navItem} to="/becomementor">Become a mentor</Link>
-                <Link className={classes.navItem} to="/contact">Contact</Link>
-                <Link className={classes.navItem} to="/login"><BsFillPersonFill className = {classes.profileIcon}/></Link>
-                </Toolbar>
-        </AppBar>
-        </ScrollToColor>
-        
+        <div>
+            {home ? (
+                <ScrollToColor>
+                    <AppBar className={classes.root}>
+                        <Toolbar className={classes.navbar}>
+                            <Link onClick={handleHome} className={classes.appName} to="/">Mentors Meet</Link>
+                            <Link onClick={handleLeave} className={classes.navItem} to="/findmentor"><Typography>Find a Mentor</Typography></Link>
+                            <Link onClick={handleLeave} className={classes.navItem} to="/becomementor">Become a mentor</Link>
+                            <Link onClick={handleLeave} className={classes.navItem} to="/contact">Contact</Link>
+                            <Link onClick={handleLeave} className={classes.navItem} to="/login"><BsFillPersonFill className={classes.profileIcon} /></Link>
+                        </Toolbar>
+                    </AppBar>
+                </ScrollToColor>
+            ) : (
+                    <AppBar className={classes.root1}>
+                        <Toolbar className={classes.navbar}>
+                            <Link onClick={handleHome} className={classes.appName1} to="/">Mentors Meet</Link>
+                            <Link onClick={handleLeave} className={classes.navItem1} to="/findmentor"><Typography>Find a Mentor</Typography></Link>
+                            <Link onClick={handleLeave} className={classes.navItem1} to="/becomementor">Become a mentor</Link>
+                            <Link onClick={handleLeave} className={classes.navItem1} to="/contact">Contact</Link>
+                            <Link onClick={handleLeave} className={classes.navItem1} to="/login"><BsFillPersonFill className={classes.profileIcon} /></Link>
+                        </Toolbar>
+                    </AppBar>
+                )}
+
+        </div>
+
     );
 }
 
