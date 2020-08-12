@@ -124,8 +124,6 @@ const Navbar = (props) => {
         setHome(true)
     }
 
-    console.log(window.location.href);
-
     const handleLeave = e => {
         setHome(false);
     }

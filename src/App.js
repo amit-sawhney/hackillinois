@@ -8,10 +8,12 @@ import Home from './Components/Home/Home';
 import Contact from './Components/Contact/Contact';
 import Navbar from './Components/Navbar/Navbar';
 import {helmet, Helmet} from 'react-helmet';
+import Footer from './Components/Footer/Footer'
 
 const useStyles = makeStyles({
   root: {
     margin: 'auto',
+    marginBottom: '40px'
   }
 });
 
@@ -21,9 +23,6 @@ const App = (props) => {
   return (
     <div>
       <Router>
-        <Helmet>
-          <title>Mentors Meet</title>
-        </Helmet>
         <Navbar />        
         <Switch>
           <div className={classes.root}>
