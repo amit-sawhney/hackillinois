@@ -4,23 +4,24 @@ import { useScrollTrigger } from "@material-ui/core";
 const ScrollHandler = props => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 615,
+    threshold: 15,
     target: props.window ? window() : undefined
   });
 
   return React.cloneElement(props.children, {
+    
     style: {
       height: '15%',
-      backgroundColor: trigger ? "#002855" : "transparent",
+      backgroundColor: trigger ? "orange" : "transparent",
       color: trigger ? "white" : "black",
       transition: trigger ? "0.3s" : "0.5s",
       boxShadow: "none",
       padding: "10px 0px",
 
-        Link: {
-          color: trigger ? "white" : "black",
-        }
-    }
+    },
+          navItem: {
+            color: trigger ? "white" : "black",
+          }
 
   });
 };
