@@ -43,74 +43,71 @@ const useStyles = makeStyles({
             width: '0%',
             borderBottom: '2px solid black',
             transition: 'width 0.3s ease',
+        },
+        '&:hover:after': {
+            width: '100%',
+        }
     },
-    '&:hover:after': {
-        width: '100%',
-    }
-},
     navbar: {
-    margin: 'auto',
-    textAlign: 'center',
-    paddingTop: '10px',
-    color: 'white',
-    textDecoration: 'none',
-},
+        margin: 'auto',
+        textAlign: 'center',
+        paddingTop: '10px',
+        color: 'white',
+        textDecoration: 'none',
+    },
     scrollNavbar: {
-    paddingTop: '50px',
-    paddingBottom: '20px',
-},
+        paddingTop: '50px',
+        paddingBottom: '20px',
+    },
     profileIcon: {
-    fontSize: '30px',
-    // marginTop: '10px',
-    marginRight: '5px',
-},
+        fontSize: '30px',
+        // marginTop: '10px',
+        marginRight: '5px',
+    },
     toolbarButtons: {
-    float: 'left',
-},
+        float: 'left',
+    },
     root1: {
-    backgroundColor: 'orange',
-    paddingBottom: '20px',
-    paddingTop: '25px',
-    position: 'sticky',
-    width: '100%',
-    height: '0%',
-},
+        backgroundColor: 'orange',
+        paddingBottom: '20px',
+        paddingTop: '25px',
+        position: 'sticky',
+        width: '100%',
+        height: '0%',
+    },
     appName1: {
-    marginRight: '70vh',
-    fontSize: '40px',
-    position: 'relative',
-    float: 'left',
-    textDecoration: 'none',
-    color: 'black',
-    marginLeft: '45px'
-},
+        marginRight: '70vh',
+        fontSize: '40px',
+        position: 'relative',
+        float: 'left',
+        textDecoration: 'none',
+        color: 'black',
+        marginLeft: '45px'
+    },
     navItem1: {
-    textDecoration: 'none',
-    marginRight: '40px',
-    marginTop: '10px',
-    fontSize: '18px',
-    position: 'relative',
-    float: 'right',
-    color: 'black',
-    paddingBottom: '5px',
-    '&:after': {
-        content: '""',
-        position: 'absolute',
-        bottom: '0',
-        left: '0',
-        height: '0',
-        width: '0%',
-        borderBottom: '2px solid black',
-        transition: 'width 0.3s ease',
-},
-'&:hover:after': {
-    width: '100%',
-}
-
-
-}
+        textDecoration: 'none',
+        marginRight: '40px',
+        marginTop: '10px',
+        fontSize: '18px',
+        position: 'relative',
+        float: 'right',
+        color: 'black',
+        paddingBottom: '5px',
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            height: '0',
+            width: '0%',
+            borderBottom: '2px solid black',
+            transition: 'width 0.3s ease',
+        },
+        '&:hover:after': {
+            width: '100%',
+        }
+    }
 });
-
 
 const Navbar = (props) => {
     const classes = useStyles();
@@ -132,7 +129,7 @@ const Navbar = (props) => {
         <div>
             {home ? (
                 <ScrollToColor homeState={home}>
-                    <AppBar className={classes.root}>
+                    <AppBar elevation={0} className={classes.root}>
                         <Toolbar className={classes.navbar}>
                             <Link onClick={handleHome} className={classes.appName} to="/">Mentors Meet</Link>
                             <Link onClick={handleLeave} className={classes.navItem} to="/findmentor">Find a Mentor</Link>
@@ -143,7 +140,7 @@ const Navbar = (props) => {
                     </AppBar>
                 </ScrollToColor>
             ) : (
-                    <AppBar className={classes.root1}>
+                    <AppBar elevation={0} className={classes.root1}>
                         <Toolbar className={classes.navbar}>
                             <Link onClick={handleHome} className={classes.appName1} to="/">Mentors Meet</Link>
                             <Link onClick={handleLeave} className={classes.navItem1} to="/findmentor">Find a Mentor</Link>

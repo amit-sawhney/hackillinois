@@ -13,7 +13,6 @@ import Footer from './Components/Footer/Footer'
 const useStyles = makeStyles({
   root: {
     margin: 'auto',
-    marginBottom: '40px'
   }
 });
 
