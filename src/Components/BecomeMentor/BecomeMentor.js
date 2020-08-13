@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { DialogContent, Accordion, AccordionSummary, AccordionDetails, Button, TextareaAutosize, FormControlLabel, Checkbox, MenuItem, Select, Dialog, Paper, Grid, FormControl, Input, TextField } from '@material-ui/core/'
-import SubjectForm from './SubjectForm'
+import { CircularProgress, DialogContent, Accordion, AccordionSummary, AccordionDetails, Button, TextareaAutosize, FormControlLabel, Checkbox, MenuItem, Select, Dialog, Paper, Grid, FormControl, Input, TextField, Typography, DialogTitle } from '@material-ui/core/'
 import { MdExpandMore } from 'react-icons/md';
-import shape from '@material-ui/core/styles/shape';
+import { FaCheck } from 'react-icons/fa';
 
 const useStyles = makeStyles({
     root: {
         marginTop: '40px',
         width: '80%',
         margin: 'auto',
+        marginBottom: '20px'
     },
     space: {
         paddingRight: '10px'
@@ -57,24 +57,35 @@ const useStyles = makeStyles({
         }
     },
     dialog: {
-        width: '80%',
+        width: '70%',
+        margin: 'auto',
+        color: 'black',
+        textAlign: 'center'
+    },
+    formTitle: {
+        textAlign: 'center',
         margin: 'auto'
+    },
+    loading: {
+        fontSize: '20px',
+        margin: 'auto',
+        textAlign: 'center'
+    },
+    dialogContent: {
+        margin: 'auto',
+        padding: '10px',
+        minHeight: '150px',
+        minWidth: '150px',
+        paddingTop: '6%',
+        color: 'green'
     }
 });
 
 const BecomeMentor = (props) => {
     const classes = useStyles();
-    const [subjects, setSubjects] = useState([{}]);
     const [formOpen, setFormOpen] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [number, setNumber] = useState('');
-    const [grade, setGrade] = useState('');
-    const [tutoringYears, setTutoringYears] = useState(0);
-    const [bio, setBio] = useState('');
-    const [math, setMath] = useState([]);
     const [alg1, setAlg1] = useState(false);
     const [alg2, setAlg2] = useState(false);
     const [preCalc, setPreCalc] = useState(false);
@@ -84,13 +95,13 @@ const BecomeMentor = (props) => {
     const [linearAlg, setLinearAlg] = useState(false);
     const [difEq, setDifEq] = useState(false);
     const [discrete, setDiscrete] = useState(false);
-    const [chem, setChem] = useState([]);
+
     const [genChem, setGenChem] = useState(false);
     const [oChem, setOChem] = useState(false);
     const [anChem, setAnChem] = useState(false);
     const [physChem, setPhysChem] = useState(false);
     const [chemLab, setChemLab] = useState(false);
-    const [compSci, setCompSci] = useState([]);
+
     const [java, setJava] = useState(false);
     const [python, setPython] = useState(false);
     const [c, setC] = useState(false);
@@ -100,17 +111,17 @@ const BecomeMentor = (props) => {
     const [algos, setAlgos] = useState(false);
     const [data, setData] = useState(false);
     const [interview, setInterview] = useState(false);
-    const [biology, setBiology] = useState([]);
+
     const [molecular, setMolecular] = useState(false);
     const [cellular, setCellular] = useState(false);
     const [anatomical, setAnatomical] = useState(false);
     const [ecology, setEcology] = useState(false);
     const [evolutionary, setEvolutionary] = useState(false);
     const [genBio, setGenBio] = useState(false);
-    const [genetics, setGenetics]= useState(false);
+    const [genetics, setGenetics] = useState(false);
     const [bioChem, setBioChem] = useState(false);
     const [bioPhysics, setBioPhysics] = useState(false);
-    const [english, setEnglish] = useState([]);
+
     const [writing, setWriting] = useState(false);
     const [shakespeare, setShakespeare] = useState(false);
     const [poetry, setPoetry] = useState(false);
@@ -118,7 +129,7 @@ const BecomeMentor = (props) => {
     const [fiction, setFiction] = useState(false);
     const [novel, setNovel] = useState(false);
     const [drama, setDrama] = useState(false);
-    const [lang, setLang] = useState([]);
+
     const [spanish, setSpanish] = useState(false);
     const [french, setFrench] = useState(false);
     const [german, setGerman] = useState(false);
@@ -126,6 +137,7 @@ const BecomeMentor = (props) => {
     const [mandarin, setMandarin] = useState(false);
     const [hindi, setHindi] = useState(false);
     const [englishLang, setEnglishLang] = useState(false);
+    const [submit, setSubmit] = useState(false);
 
     const grades = [
         { grade: '9th Grade', value: 9 },
@@ -138,6 +150,16 @@ const BecomeMentor = (props) => {
         { grade: 'College Senior', value: 16 },
     ];
 
+    const formTextFields = [
+        'first-name',
+        'last-name',
+        'email',
+        'phone-number',
+        'school-grade',
+        'tutoring-years',
+        'personal-bio'
+    ]
+
 
     const openForm = e => {
         setFormOpen(true);
@@ -147,408 +169,511 @@ const BecomeMentor = (props) => {
         setFormOpen(false);
     }
 
+    function createFormData(first, last, email, number, grade, years, bio, mathArray, chemArray, computerScienceArray, biologyArray, englishArray, foreignLanguage) {
+        var formData = {
+            firstName: first,
+            lastName: last,
+            email: email,
+            phoneNumber: number,
+            grade: grade,
+            tutoringYears: years,
+            personalBio: bio,
+            mathSubjects: mathArray,
+            chemSubjects: chemArray,
+            computerScienceSubjects: computerScienceArray,
+            biologySubjects: biologyArray,
+            englishSubjects: englishArray,
+            foreignLanguage: foreignLanguage,
+        }
+
+        return formData;
+    }
+
     const handleSubmit = e => {
-        
-    } 
+        setSubmit(true);
+        var firstName = document.getElementById('first-name').value;
+        var lastName = document.getElementById('last-name').value;
+        var email = document.getElementById('email').value;
+        var number = document.getElementById('phone-number').value;
+        var grade = document.getElementById('school-grade').value;
+        var years = document.getElementById('tutoring-years').value;
+        var bio = document.getElementById('personal-bio').value;
+
+        var mathArray = [];
+        if(alg1) mathArray.push("Algebra 1")
+        if(alg2) mathArray.push("Algebra 2");
+        if(preCalc) mathArray.push("Pre-Calculus");
+        if(calc1) mathArray.push("Calculus I");
+        if(calc2) mathArray.push("Calculus II");
+        if(calc3) mathArray.push("Calculus III");
+        if(linearAlg) mathArray.push("Linear Algebra");
+        if(difEq) mathArray.push("Differential Equations");
+        if(discrete) mathArray.push("Discrete Mathematics");
+
+        var chemArray = [];
+        if(genChem) chemArray.push("General Chemistry");
+        if(oChem) chemArray.push("Organic Chemistry");
+        if(anChem) chemArray.push("Analytical Chemistry");
+        if(physChem) chemArray.push("Physical Chemistry");
+        if(chemLab) chemArray.push("Chem Lab Adivse"); 
+
+        var computerScienceArray = [];
+        if(java) computerScienceArray.push("Java");
+        if(python) computerScienceArray.push("Python");
+        if(c) computerScienceArray.push("C/C++/C#");
+        if(js) computerScienceArray.push("Javascript/jQuery");
+        if(webDev) computerScienceArray.push("Web Development");
+        if(backend) computerScienceArray.push("Backend Development");
+        if(algos) computerScienceArray.push("Algorithms");
+        if(data) computerScienceArray.push("Data Structures");
+        if(interview) computerScienceArray.push("Interview Prep");
+
+        var biologyArray = [];
+        if(genBio) biologyArray.push("General Biology");
+        if(cellular) biologyArray.push("Cellular Biology");
+        if(anatomical) biologyArray.push("Anatomical Sciences");
+        if(ecology) biologyArray.push("Ecology");
+        if(evolutionary) biologyArray.push("Evolutionary Biology");
+        if(molecular) biologyArray.push("Molecular Biology");
+        if(genetics) biologyArray.push("Genetics");
+        if(bioChem) biologyArray.push("Biochemistry");
+        if(bioPhysics) biologyArray.push("Bio Physics");
+
+        var englishArray = [];
+        if(writing) englishArray.push("Writing Adivse");
+        if(shakespeare) englishArray.push("Shakespeare");
+        if(poetry) englishArray.push("Poetry");
+        if(nonfiction) englishArray.push("NonFiction");
+        if(fiction) englishArray.push("Fiction");
+        if(novel) englishArray.push("Novel");
+        if(drama) englishArray.push("Drama");
+
+        var foreignLanguage = [];
+        if(spanish) foreignLanguage.push("Spanish");
+        if(french) foreignLanguage.push("French");
+        if(german) foreignLanguage.push("German");
+        if(japanese) foreignLanguage.push("Japanese");
+        if(mandarin) foreignLanguage.push("Mandarin Chinese");
+        if(hindi) foreignLanguage.push("Hindi");
+        if(englishLang) foreignLanguage.push("English");
+
+        var formData = createFormData(firstName, lastName, email, number, grade, years, bio, mathArray, chemArray, computerScienceArray, biologyArray, englishArray, foreignLanguage);
+        console.log(formData);
+        setSubmit(false);
+        setSuccess(true);
+
+    }
 
     return (
         <div className={classes.root}>
             {/* <Paper className={classes.paper}> */}
+            <div className={classes.formTitle}>
+                <Typography variant="h3">Become a mentor today!</Typography><br />
+                <Typography variant="subtitle1">
+                    Before COVID-19, student to student collaboration could be difficult to come by especially outside of friend groups,
+                    schools, or even states. This collaboration has only become more difficult entering a virtual education environment,
+                    however, you can change that! By becoming a mentor, you leave your mark and help other students achieve their goals!
+                </Typography>
+            </div> <br />
+            <Dialog maxWidth='xs'  onClose={() => setSuccess(false)} fullWidth open={success} className={classes.dialog}>
+                <h3>Your form submitted successfully!</h3>
+                <DialogContent className={classes.dialogContent}>
+                    <FaCheck size={80} />
+                </DialogContent>
+            </Dialog>
+            <Dialog maxWidth='xs' fullWidth open={submit} className={classes.dialog}>
+                <h3>Your form is submitting!</h3>
+                <DialogContent className={classes.dialogContent}>
+                    <CircularProgress thickness={4} size={80} />
+                </DialogContent>
+            </Dialog>
 
-            <Button onClick={openForm}>Open Form</Button>
-            <div>
-                <Dialog className={classes.dialog} fullWidth maxWidth="xl" onClose={closeForm} open={formOpen}>
-                    <DialogContent>
-                        <FormControl fullWidth>
-                            <div className={classes.section}>
-                                <div className={classes.header}>General Information</div>
-                                <div className={classes.content}>
-                                    <h3>Name</h3>
-                                    <Grid style={{ margin: 'auto' }} container>
-                                        <Grid className={classes.space} item xs={6}>
-                                            <TextField value={firstName} onChange = {(e) => setFirstName(e.target.value)} fullWidth variant="outlined" required label="First name" />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <TextField value={lastName} onChange = {(e) => setLastName(e.target.value)} fullWidth variant="outlined" required label="Last name" />
-                                        </Grid>
-                                    </Grid>
-                                    <h3>Contact</h3>
-                                    <Grid style={{ margin: 'auto' }} container>
-                                        <Grid className={classes.space} item xs={6}>
-                                            <TextField value={email} onChange = {(e) => setEmail(e.target.value)} fullWidth variant="outlined" required label="Email" />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <TextField value={number} onChange = {(e) => setNumber(e.target.value)} placeholder="Ex: (123) 456-7890" fullWidth variant="outlined" label="Phone Number" />
-                                        </Grid>
-                                    </Grid>
-                                    <h3>Education</h3>
-                                    <Grid style={{ margin: 'auto' }} container>
-                                        <Grid className={classes.space} item xs={6}>
-                                            <Select
-                                                native
-                                                label="Grade"
-                                                required
-                                                aria-label="Select Grade"
-                                                defaultValue=""
-                                                fullWidth
-                                                value={grade}
-                                                onChange = {(e) => setGrade(e.target.value)}
-                                            >
-                                                <option disabled value="" label="Select Grade" />
-                                                {
-                                                    grades.map((grade) => 
-                                                        <option value={grade.value}>{grade.grade}</option>
-                                                    )
-                                                }
-                                            </Select>
+            <FormControl fullWidth>
+                <div className={classes.section}>
+                    <div className={classes.header}>General Information</div>
+                    <div className={classes.content}>
+                        <h3>Name</h3>
+                        <Grid style={{ margin: 'auto' }} container>
+                            <Grid className={classes.space} item xs={6}>
+                                <TextField id='first-name' fullWidth variant="outlined" required label="First name" />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField id='last-name' fullWidth variant="outlined" required label="Last name" />
+                            </Grid>
+                        </Grid>
+                        <h3>Contact</h3>
+                        <Grid style={{ margin: 'auto' }} container>
+                            <Grid className={classes.space} item xs={6}>
+                                <TextField id='email' fullWidth variant="outlined" required label="Email" />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField id='phone-number' placeholder="Ex: (123) 456-7890" fullWidth variant="outlined" label="Phone Number" />
+                            </Grid>
+                        </Grid>
+                        <h3>Education</h3>
+                        <Grid style={{ margin: 'auto' }} container>
+                            <Grid className={classes.space} item xs={6}>
+                                <Select
+                                    id='school-grade'
+                                    native
+                                    label="Grade"
+                                    required
+                                    aria-label="Select Grade"
+                                    fullWidth
+                                    defaultValue=""
+                                >
+                                    <option disabled value="" label="Select Grade" />
+                                    {
+                                        grades.map((grade) =>
+                                            <option value={grade.value}>{grade.grade}</option>
+                                        )
+                                    }
+                                </Select>
 
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <TextField value={tutoringYears} onChange = {(e) => setTutoringYears(e.target.value)} fullWidth type="number" variant="outlined" label="Years of tutoring..." />
-                                        </Grid>
-                                    </Grid>
-                                    <h3>Bio</h3>
-                                    <TextareaAutosize value={bio} onChange = {(e) => setBio(e.target.value)} className={classes.textArea} />
-                                </div>
-                                <div className={classes.header}>Experience</div>
-                                <p style={{ textAlign: 'center' }}>Please only select subjects you would feel comfortable tutoring in!</p>
-                                <div className={classes.content}>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
-                                            Mathematics
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField id='tutoring-years' fullWidth type="number" variant="outlined" label="Years of tutoring..." />
+                            </Grid>
+                        </Grid>
+                        <h3>Bio</h3>
+                        <TextareaAutosize id='personal-bio' className={classes.textArea} />
+                    </div>
+                    <div className={classes.header}>Experience</div>
+                    <p style={{ textAlign: 'center' }}>Please only select subjects you would feel comfortable tutoring in!</p>
+                    <div className={classes.content}>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
+                                Mathematics
                                         </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="algebra1"
-                                                        control={<Checkbox checked={alg1} onClick={() => setAlg1(!alg1)} color="primary" />}
-                                                        label="Algebra 1"
-                                                    />
-                                                    <br />
-                                                    <FormControlLabel
-                                                        value="algebra2"
-                                                        control={<Checkbox checked={alg2} onClick={() => setAlg2(!alg2)} color="primary" />}
-                                                        label="Algebra 2"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="precalc"
-                                                        control={<Checkbox checked={preCalc} onClick={() => setPreCalc(!preCalc)} color="primary" />}
-                                                        label="Pre-Calculus"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="calculus1"
-                                                        control={<Checkbox checked={calc1} onClick={() => setCalc1(!calc1)} color="primary" />}
-                                                        label="Calculus I"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="calculus2"
-                                                        control={<Checkbox checked={calc2} onClick={() => setCalc2(!calc2)} color="primary" />}
-                                                        label="Calculus II"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="calculus3/multi"
-                                                        control={<Checkbox checked={calc3} onClick={() => setCalc3(!calc3)} color="primary" />}
-                                                        label="Calculus III/Multivariable Calculus"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="linearalgebra"
-                                                        control={<Checkbox checked={linearAlg} onClick={() => setLinearAlg(!linearAlg)} color="primary" />}
-                                                        label="Linear Algebra"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="difeq"
-                                                        control={<Checkbox checked={difEq} onClick={() => setDifEq(!difEq)} color="primary" />}
-                                                        label="Differential Equations"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="discrete"
-                                                        control={<Checkbox checked={discrete} onClick={() => setDiscrete(!discrete)} color="primary" />}
-                                                        label="Discrete Mathematics"
-                                                    />
-                                                </Grid>
-                                            </Grid>
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="algebra1"
+                                            control={<Checkbox checked={alg1} onClick={() => setAlg1(!alg1)} color="primary" />}
+                                            label="Algebra 1"
+                                        />
+                                        <br />
+                                        <FormControlLabel
+                                            value="algebra2"
+                                            control={<Checkbox id="alg2" checked={alg2} onClick={() => setAlg2(!alg2)} color="primary" />}
+                                            label="Algebra 2"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="precalc"
+                                            control={<Checkbox checked={preCalc} onClick={() => setPreCalc(!preCalc)} color="primary" />}
+                                            label="Pre-Calculus"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="calculus1"
+                                            control={<Checkbox checked={calc1} onClick={() => setCalc1(!calc1)} color="primary" />}
+                                            label="Calculus I"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="calculus2"
+                                            control={<Checkbox checked={calc2} onClick={() => setCalc2(!calc2)} color="primary" />}
+                                            label="Calculus II"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="calculus3/multi"
+                                            control={<Checkbox checked={calc3} onClick={() => setCalc3(!calc3)} color="primary" />}
+                                            label="Calculus III/Multivariable Calculus"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="linearalgebra"
+                                            control={<Checkbox checked={linearAlg} onClick={() => setLinearAlg(!linearAlg)} color="primary" />}
+                                            label="Linear Algebra"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="difeq"
+                                            control={<Checkbox checked={difEq} onClick={() => setDifEq(!difEq)} color="primary" />}
+                                            label="Differential Equations"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="discrete"
+                                            control={<Checkbox checked={discrete} onClick={() => setDiscrete(!discrete)} color="primary" />}
+                                            label="Discrete Mathematics"
+                                        />
+                                    </Grid>
+                                </Grid>
 
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />} >
-                                            Chemistry
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />} >
+                                Chemistry
                                         </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="genchem"
-                                                        control={<Checkbox checked={genChem} onClick={() => setGenChem(!genChem)} color="primary" />}
-                                                        label="General Chemistry"
-                                                    />
-                                                    <br />
-                                                    <FormControlLabel
-                                                        value="ochem"
-                                                        control={<Checkbox checked={oChem} onClick={() => setOChem(!oChem)} color="primary" />}
-                                                        label="Organic Chemistry"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="anchem"
-                                                        control={<Checkbox checked={anChem} onClick={() => setAnChem(!anChem)} color="primary" />}
-                                                        label="Analytical Chemistry"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="phychem"
-                                                        control={<Checkbox checked={physChem} onClick={() => setPhysChem(!physChem)} color="primary" />}
-                                                        label="Physical Chemistry"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="chemLabs"
-                                                        control={<Checkbox checked={chemLab} onClick={() => setChemLab(!chemLab)} color="primary" />}
-                                                        label="Chem Lab Advise"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="genchem"
+                                            control={<Checkbox checked={genChem} onClick={() => setGenChem(!genChem)} color="primary" />}
+                                            label="General Chemistry"
+                                        />
+                                        <br />
+                                        <FormControlLabel
+                                            value="ochem"
+                                            control={<Checkbox checked={oChem} onClick={() => setOChem(!oChem)} color="primary" />}
+                                            label="Organic Chemistry"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="anchem"
+                                            control={<Checkbox checked={anChem} onClick={() => setAnChem(!anChem)} color="primary" />}
+                                            label="Analytical Chemistry"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="phychem"
+                                            control={<Checkbox checked={physChem} onClick={() => setPhysChem(!physChem)} color="primary" />}
+                                            label="Physical Chemistry"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="chemLabs"
+                                            control={<Checkbox checked={chemLab} onClick={() => setChemLab(!chemLab)} color="primary" />}
+                                            label="Chem Lab Advise"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
 
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
-                                            Computer Science
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
+                                Computer Science
                             </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="java"
-                                                        control={<Checkbox checked={java} onClick={() => setJava(!java)} color="primary" />}
-                                                        label="Java"
-                                                    />
-                                                    <br />
-                                                    <FormControlLabel
-                                                        value="python"
-                                                        control={<Checkbox checked={python} onClick={() => setPython(!python)} color="primary" />}
-                                                        label="Python"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="c"
-                                                        control={<Checkbox checked={c} onClick={() => setC(!c)} color="primary" />}
-                                                        label="C/C++/C#"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="js"
-                                                        control={<Checkbox checked={js} onClick={() => setJS(!js)} color="primary" />}
-                                                        label="Javascript/jQuery"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="webdev"
-                                                        control={<Checkbox checked={webDev} onClick={() => setWebDev(!webDev)} color="primary" />}
-                                                        label="Web Development"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="backend"
-                                                        control={<Checkbox checked={backend} onClick={() => setBackend(!backend)} color="primary" />}
-                                                        label="Backend Development"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="algos"
-                                                        control={<Checkbox checked={algos} onClick={() => setAlgos(!algos)} color="primary" />}
-                                                        label="Algorithms"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="data"
-                                                        control={<Checkbox checked={data} onClick={() => setData(!data)} color="primary" />}
-                                                        label="Data Structures"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="interview"
-                                                        control={<Checkbox checked={interview} onClick={() => setInterview(!interview)} color="primary" />}
-                                                        label="Interview Prep"
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
-                                            Biology
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="java"
+                                            control={<Checkbox checked={java} onClick={() => setJava(!java)} color="primary" />}
+                                            label="Java"
+                                        />
+                                        <br />
+                                        <FormControlLabel
+                                            value="python"
+                                            control={<Checkbox checked={python} onClick={() => setPython(!python)} color="primary" />}
+                                            label="Python"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="c"
+                                            control={<Checkbox checked={c} onClick={() => setC(!c)} color="primary" />}
+                                            label="C/C++/C#"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="js"
+                                            control={<Checkbox checked={js} onClick={() => setJS(!js)} color="primary" />}
+                                            label="Javascript/jQuery"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="webdev"
+                                            control={<Checkbox checked={webDev} onClick={() => setWebDev(!webDev)} color="primary" />}
+                                            label="Web Development"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="backend"
+                                            control={<Checkbox checked={backend} onClick={() => setBackend(!backend)} color="primary" />}
+                                            label="Backend Development"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="algos"
+                                            control={<Checkbox checked={algos} onClick={() => setAlgos(!algos)} color="primary" />}
+                                            label="Algorithms"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="data"
+                                            control={<Checkbox checked={data} onClick={() => setData(!data)} color="primary" />}
+                                            label="Data Structures"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="interview"
+                                            control={<Checkbox checked={interview} onClick={() => setInterview(!interview)} color="primary" />}
+                                            label="Interview Prep"
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
+                                Biology
                             </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="genBio"
-                                                        control={<Checkbox checked={genBio} onClick={() => setGenBio(!genBio)} color="primary" />}
-                                                        label="General Biology"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="cellular"
-                                                        control={<Checkbox checked={cellular} onClick={() => setCellular(!cellular)} color="primary" />}
-                                                        label="Cellular Biology"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="anatomical"
-                                                        control={<Checkbox checked={anatomical} onClick={() => setAnatomical(!anatomical)} color="primary" />}
-                                                        label="Anatomical Sciences"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="ecology"
-                                                        control={<Checkbox checked={ecology} onClick={() => setEcology(!ecology)} color="primary" />}
-                                                        label="Ecology"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="evolutionary"
-                                                        control={<Checkbox checked={evolutionary} onClick={() => setEvolutionary(!evolutionary)} color="primary" />}
-                                                        label="Evolutionary Biology"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="molecular"
-                                                        control={<Checkbox checked={molecular} onClick={() => setMolecular(!molecular)} color="primary" />}
-                                                        label="Molecular Biology"
-                                                    />
-                                                    <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="genetics"
-                                                        control={<Checkbox checked={genetics} onClick={() => setGenetics(!genetics)} color="primary" />}
-                                                        label="Genetics"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="bioChemistry"
-                                                        control={<Checkbox checked={bioChem} onClick={() => setBioChem(!bioChem)} color="primary" />}
-                                                        label="Biochemistry"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="biophysics"
-                                                        control={<Checkbox checked={bioPhysics} onClick={() => setBioPhysics(!bioPhysics)} color="primary" />}
-                                                        label="Bio Physics"
-                                                    />
-                                                </Grid>
-                                            </Grid>
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="genBio"
+                                            control={<Checkbox checked={genBio} onClick={() => setGenBio(!genBio)} color="primary" />}
+                                            label="General Biology"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="cellular"
+                                            control={<Checkbox checked={cellular} onClick={() => setCellular(!cellular)} color="primary" />}
+                                            label="Cellular Biology"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="anatomical"
+                                            control={<Checkbox checked={anatomical} onClick={() => setAnatomical(!anatomical)} color="primary" />}
+                                            label="Anatomical Sciences"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="ecology"
+                                            control={<Checkbox checked={ecology} onClick={() => setEcology(!ecology)} color="primary" />}
+                                            label="Ecology"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="evolutionary"
+                                            control={<Checkbox checked={evolutionary} onClick={() => setEvolutionary(!evolutionary)} color="primary" />}
+                                            label="Evolutionary Biology"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="molecular"
+                                            control={<Checkbox checked={molecular} onClick={() => setMolecular(!molecular)} color="primary" />}
+                                            label="Molecular Biology"
+                                        />
+                                        <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="genetics"
+                                            control={<Checkbox checked={genetics} onClick={() => setGenetics(!genetics)} color="primary" />}
+                                            label="Genetics"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="bioChemistry"
+                                            control={<Checkbox checked={bioChem} onClick={() => setBioChem(!bioChem)} color="primary" />}
+                                            label="Biochemistry"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="biophysics"
+                                            control={<Checkbox checked={bioPhysics} onClick={() => setBioPhysics(!bioPhysics)} color="primary" />}
+                                            label="Bio Physics"
+                                        />
+                                    </Grid>
+                                </Grid>
 
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
-                                            English/Writing
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
+                                English/Writing
                             </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="writing"
-                                                        control={<Checkbox checked={writing} onClick={() => setWriting(!writing)} color="primary" />}
-                                                        label="Writing advise"
-                                                    />
-                                                    <br />
-                                                    <FormControlLabel
-                                                        value="shakespeare"
-                                                        control={<Checkbox checked={shakespeare} onClick={() => setShakespeare(!shakespeare)} color="primary" />}
-                                                        label="Shakespeare"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="poetry"
-                                                        control={<Checkbox checked={poetry} onClick={() => setPoetry(!poetry)} color="primary" />}
-                                                        label="Poetry"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="nonfiction"
-                                                        control={<Checkbox checked={nonfiction} onClick={() => setNonFiction(!nonfiction)} color="primary" />}
-                                                        label="Nonfiction"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="fiction"
-                                                        control={<Checkbox checked={fiction} onClick={() => setFiction(!fiction)} color="primary" />}
-                                                        label="Fiction"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="novel"
-                                                        control={<Checkbox checked={novel} onClick={() => setNovel(!novel)} color="primary" />}
-                                                        label="Novel"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="drama"
-                                                        control={<Checkbox checked={drama} onClick={() => setDrama(!drama)} color="primary" />}
-                                                        label="Drama"
-                                                    /> <br />
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                    <Accordion>
-                                        <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
-                                            Foreign Language
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="writing"
+                                            control={<Checkbox checked={writing} onClick={() => setWriting(!writing)} color="primary" />}
+                                            label="Writing advise"
+                                        />
+                                        <br />
+                                        <FormControlLabel
+                                            value="shakespeare"
+                                            control={<Checkbox checked={shakespeare} onClick={() => setShakespeare(!shakespeare)} color="primary" />}
+                                            label="Shakespeare"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="poetry"
+                                            control={<Checkbox checked={poetry} onClick={() => setPoetry(!poetry)} color="primary" />}
+                                            label="Poetry"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="nonfiction"
+                                            control={<Checkbox checked={nonfiction} onClick={() => setNonFiction(!nonfiction)} color="primary" />}
+                                            label="Nonfiction"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="fiction"
+                                            control={<Checkbox checked={fiction} onClick={() => setFiction(!fiction)} color="primary" />}
+                                            label="Fiction"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="novel"
+                                            control={<Checkbox checked={novel} onClick={() => setNovel(!novel)} color="primary" />}
+                                            label="Novel"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="drama"
+                                            control={<Checkbox checked={drama} onClick={() => setDrama(!drama)} color="primary" />}
+                                            label="Drama"
+                                        /> <br />
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary className={classes.subjectSection} expandIcon={<MdExpandMore />}>
+                                Foreign Language
                             </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
-                                                <Grid item>
-                                                    <FormControlLabel
-                                                        value="spanish"
-                                                        control={<Checkbox checked={spanish} onClick={() => setSpanish(!spanish)} color="primary" />}
-                                                        label="Spanish"
-                                                    />
-                                                    <br />
-                                                    <FormControlLabel
-                                                        value="french"
-                                                        control={<Checkbox checked={french} onClick={() => setFrench(!french)} color="primary" />}
-                                                        label="French"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="german"
-                                                        control={<Checkbox checked={german} onClick={() => setGerman(!german)} color="primary" />}
-                                                        label="German"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="japanese"
-                                                        control={<Checkbox checked={japanese} onClick={() => setJapanese(!japanese)} color="primary" />}
-                                                        label="Japanese"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="Mandarin Chinese"
-                                                        control={<Checkbox checked={mandarin} onClick={() => setMandarin(!mandarin)} color="primary" />}
-                                                        label="Mandarin Chinese"
-                                                    /> <br />
-                                                    <FormControlLabel
-                                                        value="hindi"
-                                                        control={<Checkbox checked={hindi} onClick={() => setHindi(!hindi)} color="primary" />}
-                                                        label="Hindi"
-                                                    /> <br />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <FormControlLabel
-                                                        value="english"
-                                                        control={<Checkbox checked={englishLang} onClick={() => setEnglishLang(!englishLang)} color="primary" />}
-                                                        label="English"
-                                                    /> <br />
-                                                </Grid>
-                                            </Grid>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                </div>
-                                <Button onClick={handleSubmit} className={classes.submitButton}>Submit</Button>
-                            </div>
-                        </FormControl >
-                    </DialogContent>
-                </Dialog>
-            </div>
+                            <AccordionDetails>
+                                <Grid style={{ margin: 'auto', textAlign: 'center', borderTop: 'solid black', paddingTop: '2%' }} container>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="spanish"
+                                            control={<Checkbox checked={spanish} onClick={() => setSpanish(!spanish)} color="primary" />}
+                                            label="Spanish"
+                                        />
+                                        <br />
+                                        <FormControlLabel
+                                            value="french"
+                                            control={<Checkbox checked={french} onClick={() => setFrench(!french)} color="primary" />}
+                                            label="French"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="german"
+                                            control={<Checkbox checked={german} onClick={() => setGerman(!german)} color="primary" />}
+                                            label="German"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="japanese"
+                                            control={<Checkbox checked={japanese} onClick={() => setJapanese(!japanese)} color="primary" />}
+                                            label="Japanese"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="Mandarin Chinese"
+                                            control={<Checkbox checked={mandarin} onClick={() => setMandarin(!mandarin)} color="primary" />}
+                                            label="Mandarin Chinese"
+                                        /> <br />
+                                        <FormControlLabel
+                                            value="hindi"
+                                            control={<Checkbox checked={hindi} onClick={() => setHindi(!hindi)} color="primary" />}
+                                            label="Hindi"
+                                        /> <br />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <FormControlLabel
+                                            value="english"
+                                            control={<Checkbox checked={englishLang} onClick={() => setEnglishLang(!englishLang)} color="primary" />}
+                                            label="English"
+                                        /> <br />
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                    <Button onClick={handleSubmit} className={classes.submitButton}>Submit</Button>
+                </div>
+            </FormControl >
             {/* </Paper> */}
         </div >
     );

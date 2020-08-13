@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, FormControl, FormGroup, TextField, TextareaAutosize, Grid, Button, Modal } from '@material-ui/core';
+import { Dialog, Paper, FormControl, FormGroup, TextField, TextareaAutosize, Grid, Button, Modal } from '@material-ui/core';
 import { FcCheckmark } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import background from '../../images/flowBackground.png'
@@ -60,6 +60,10 @@ const useStyles = makeStyles({
         marginBottom: '20px', 
         paddingBottom: '20px', 
         paddingTop: '20px',
+    },
+    modalHead: {
+        fontSize: '25px',
+        marginBottom: '10px'
     }
 });
 
@@ -144,9 +148,9 @@ const Contact = (props) => {
                     <Modal className={classes.modal} onClose={closeModal} open={successModal}>
                         <Paper>
                             <div className={classes.modalMessage}>
-                                <h1 style={{ color: 'green' }}>Success!</h1>
-                                <p>Your message submitted successfully! Thank you, and I will respond as soon as possible.</p>
+                                <div className={classes.modalHead} style={{ color: 'green' }}>Success!</div>
                                 <FcCheckmark size="60px" />
+                                <p>Your message submitted successfully! Thank you, and I will respond as soon as possible.</p>
                             </div>
                         </Paper>
                     </Modal>
@@ -155,10 +159,10 @@ const Contact = (props) => {
                     <Modal className={classes.modal} onClose={closeModal} open={failModal}>
                         <Paper>
                             <div className={classes.modalMessage}>
-                                <h1 style={{ color: 'red' }}>Failed!</h1>
+                                <div className={classes.modalHead} style={{ color: 'red' }}>Failed!</div>
+                                <AiOutlineClose style={{ color: 'red' }} size="60px" />
                                 <p>You are missing information :(</p>
                                 <p>Ensure that you have entered information in each field</p>
-                                <AiOutlineClose style={{ color: 'red' }} size="60px" />
                             </div>
                         </Paper>
                     </Modal>
