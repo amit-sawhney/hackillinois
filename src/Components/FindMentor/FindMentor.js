@@ -46,6 +46,15 @@ const useStyles = makeStyles({
     textAlign: 'center',
     fontSize: '60px',
     marginBottom: '10vh'
+  },
+  perfectMatch: {
+    backgroundColor: '#A8EC90'
+  },
+  closeMatch: {
+    backgroundColor: '#EBEB5C'
+  },
+  badMatch: {
+    backgroundColor: '#EC887B'
   }
   //   background: {
   //     // backgroundImage: `url(${mentoring})`,
@@ -55,7 +64,8 @@ const useStyles = makeStyles({
   //     // backgroundRepeat: 'no-repeat',
   //     // paddingBottom: 0,
   //     // marginBottom: 0,
-  // }
+  // },
+
 });
 
 
@@ -71,9 +81,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
+    
   },
 }))(TableRow);
 
@@ -82,9 +90,11 @@ const StyledTableRow = withStyles((theme) => ({
 const Mentor = (props) => {
   const classes = useStyles();
   const [tags, setTags] = useState([]);
-  const [tableMentors, setTableMentors] = useState([]);
+  const [tableMentors, setTableMentors] = useState([{}]);
   const [mentors, setMentors] = useState([]);
   const [searched, setSearched] = useState(false);
+
+
 
   const searchOptions = [
     { name: "Algebra 1" },
@@ -175,7 +185,7 @@ const Mentor = (props) => {
       temp.push(mentorRankObject[i].mentor);
     }
 
-    setTableMentors(temp);
+    setTableMentors(mentorRankObject);
   }
 
   const addTags = (event, values) => {
@@ -238,31 +248,74 @@ const Mentor = (props) => {
         </div>
         {
           searched ? (
-            <TableContainer style={{ marginTop: '30px' }} component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="left">Name</StyledTableCell>
-                <StyledTableCell align="center">Email</StyledTableCell>
-                <StyledTableCell align="right">More Info</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {tableMentors.map((mentor) => (
-                <StyledTableRow >
-                  <StyledTableCell align="left">{mentor.fname} {mentor.lname}</StyledTableCell>
-                  <StyledTableCell align="center"> {mentor.email}</StyledTableCell>
-                  <StyledTableCell align="right"> <Viewmore id={mentor.mentor_id} /></StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+            tableMentors.length !== 0 ? (
+              <TableContainer style={{ marginTop: '30px' }} component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="left">Name</StyledTableCell>
+                      <StyledTableCell align="center">Email</StyledTableCell>
+                      <StyledTableCell align="right">More Info</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {tableMentors.map((person) => (
+                      person.match === 100 ? (
+                        <StyledTableRow className={classes.perfectMatch}>
+                          <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
+                          <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
+                          <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                        </StyledTableRow>
+                      ) : (
+                          person.match >= 85 ? (
+                            <StyledTableRow className={classes.perfectMatch}>
+                              <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
+                              <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
+                              <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                            </StyledTableRow>
+                          ) : (
+                              person.match >= 50 ? (
+                                <StyledTableRow className={classes.closeMatch}>
+                                  <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
+                                  <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
+                                  <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                </StyledTableRow>
+                              ) : (
+                                  <StyledTableRow className={classes.badMatch}>
+                                    <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
+                                    <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
+                                    <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                  </StyledTableRow>
+                                )
+                            )
+                        )
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+                <TableContainer style={{ marginTop: '30px' }} component={Paper}>
+                  <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell align="left">Name</StyledTableCell>
+                        <StyledTableCell align="center">Email</StyledTableCell>
+                        <StyledTableCell align="right">More Info</StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <StyledTableRow >
+                        <StyledTableCell align="left">Unfortunately, no mentor is available for your requested subjects currently :(</StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )
           ) : (
-            <></>
-          )
+              <></>
+            )
         }
-        
+
 
       </div>
     </div>
