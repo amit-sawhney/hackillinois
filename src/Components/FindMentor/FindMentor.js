@@ -14,6 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import sortMentors from '../Helpers/MentorAlgorithm';
+import { FaCheck } from 'react-icons/fa';
 
 const useStyles = makeStyles({
   search: {
@@ -256,6 +257,7 @@ const Mentor = (props) => {
                       <StyledTableCell align="left">Name</StyledTableCell>
                       <StyledTableCell align="center">Email</StyledTableCell>
                       <StyledTableCell align="right">More Info</StyledTableCell>
+                      <StyledTableCell align="right">Perfect Match?</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -265,6 +267,7 @@ const Mentor = (props) => {
                           <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                           <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
                           <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                          <StyledTableCell align="right"><FaCheck style={{color: 'green'}} size={40} /></StyledTableCell>
                         </StyledTableRow>
                       ) : (
                           person.match >= 85 ? (
