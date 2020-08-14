@@ -18,7 +18,7 @@ const Home = (props) => {
 
         <div className="below">
           <h1>What we are about!</h1>
-          <p>Students Meet was inspired from the lack of virtual collabortion students can utilize, especially
+          <p>Students Meet was inspired from the lack of virtual collaboration students can utilize, especially
           during COVID-19. This application seeks to open up an opportunity for students to help each other academically
           and socially. Not only will this open up learning from a variety of experienced individuals, but it will also
           allow students to make a diverse and widespread group of friends while increasing their network connections. Students Meet
