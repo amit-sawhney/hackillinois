@@ -136,13 +136,40 @@ const Mentor = (props) => {
 
   const handleSearch = e => {
     var searchQueries = removeDuplicates(tags);
+
+
     console.log(searchQueries);
 
-    var mentorRankObject = sortMentors(mentors, searchQueries);
+    var mentorsToReturn = [];
 
+    for (var i = 0; i < mentors.length; i++) {
+      var person = mentors[i];
+      var matchCounter = 0;
+
+      for (var j = 0; j < searchQueries.length; j++) {
+        if (person.interestedsubjects.indexOf(searchQueries[j]) !== -1) {
+          matchCounter++;
+        }
+      }
+
+      if (matchCounter !== 0) {
+        var matchCalc = Math.round(matchCounter / searchQueries.length * 100);
+
+        mentorsToReturn.push({
+          mentor: person,
+          match: matchCalc,
+        })
+      }
+    }
+
+    mentorsToReturn.sort(function (a, b) {
+      return a.match - b.match;
+    });
+
+    var mentorRankObject = mentorsToReturn;
     var temp = [];
 
-    for(var i = 0; i < mentorRankObject.length; i++) {
+    for (var i = 0; i < mentorRankObject.length; i++) {
       temp.push(mentorRankObject[i].mentor);
     }
 
@@ -155,7 +182,7 @@ const Mentor = (props) => {
 
   function removeDuplicates(array) {
     var temp = [];
-    for(var i = 0; i < array.length; i++) {
+    for (var i = 0; i < array.length; i++) {
       temp.push(array[i].name);
     }
     return temp.filter((a, b) => temp.indexOf(a) === b)
@@ -208,26 +235,26 @@ const Mentor = (props) => {
           <Button onClick={handleSearch} className={classes.searchButton}>Search</Button>
         </div>
 
-      <TableContainer style={{marginTop: '30px'}} component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="center">Email</StyledTableCell>
-            <StyledTableCell align="right">More Info</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tableMentors.map((mentor) => (
-            <StyledTableRow >
-              <StyledTableCell align="left">{mentor.fname} {mentor.lname}</StyledTableCell>
-              <StyledTableCell align="center"> {mentor.email}</StyledTableCell>
-              <StyledTableCell align="right"> <Viewmore id={mentor.mentor_id}/></StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        <TableContainer style={{ marginTop: '30px' }} component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="left">Name</StyledTableCell>
+                <StyledTableCell align="center">Email</StyledTableCell>
+                <StyledTableCell align="right">More Info</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableMentors.map((mentor) => (
+                <StyledTableRow >
+                  <StyledTableCell align="left">{mentor.fname} {mentor.lname}</StyledTableCell>
+                  <StyledTableCell align="center"> {mentor.email}</StyledTableCell>
+                  <StyledTableCell align="right"> <Viewmore id={mentor.mentor_id} /></StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
       </div>
     </div>
