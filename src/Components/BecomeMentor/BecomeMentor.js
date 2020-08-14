@@ -219,7 +219,7 @@ const BecomeMentor = (props) => {
             if(bioChem) interestedSubjects +="Biochemistry, ";
             if(bioPhysics) interestedSubjects +="Bio Physics, ";
     
-            if(writing) interestedSubjects +="Writing Adivse, ";
+            if(writing) interestedSubjects +="Writing Advise, ";
             if(shakespeare) interestedSubjects +="Shakespeare, ";
             if(poetry) interestedSubjects +="Poetry, ";
             if(nonfiction) interestedSubjects +="NonFiction, ";

@@ -118,10 +118,10 @@ const Mentor = (props) => {
     { name: "Genetics" },
     { name: "Biochemistry" },
     { name: "Bio Physics" },
-    { name: "Writing advise" },
+    { name: "Writing Advise" },
     { name: "Shakespeare" },
     { name: "Poetry" },
-    { name: "Nonfiction" },
+    { name: "NonFiction" },
     { name: "Fiction" },
     { name: "Novel" },
     { name: "Drama" },
@@ -163,7 +163,7 @@ const Mentor = (props) => {
     }
 
     mentorsToReturn.sort(function (a, b) {
-      return a.match - b.match;
+      return b.match - a.match;
     });
 
     var mentorRankObject = mentorsToReturn;
