@@ -8,5 +8,6 @@ CREATE TABLE mentors(
     number VARCHAR(20),
     grade VARCHAR(10),
     bio VARCHAR(500),
+    years VARCHAR(10),
     interestedSubjects VARCHAR(1000)
 );
