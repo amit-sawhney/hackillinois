@@ -84,6 +84,7 @@ const Mentor = (props) => {
   const [tags, setTags] = useState([]);
   const [tableMentors, setTableMentors] = useState([]);
   const [mentors, setMentors] = useState([]);
+  const [searched, setSearched] = useState(false);
 
   const searchOptions = [
     { name: "Algebra 1" },
@@ -137,6 +138,7 @@ const Mentor = (props) => {
   const handleSearch = e => {
     var searchQueries = removeDuplicates(tags);
 
+    setSearched(true);
 
     console.log(searchQueries);
 
@@ -234,8 +236,9 @@ const Mentor = (props) => {
         <div className={classes.center}>
           <Button onClick={handleSearch} className={classes.searchButton}>Search</Button>
         </div>
-
-        <TableContainer style={{ marginTop: '30px' }} component={Paper}>
+        {
+          searched ? (
+            <TableContainer style={{ marginTop: '30px' }} component={Paper}>
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
@@ -255,6 +258,11 @@ const Mentor = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
+          ) : (
+            <></>
+          )
+        }
+        
 
       </div>
     </div>
