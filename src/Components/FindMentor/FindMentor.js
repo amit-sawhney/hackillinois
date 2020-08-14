@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Autocomplete } from '@material-ui/lab';
 import { Typography, Button, TextField } from '@material-ui/core'
 import mentoring from '../../images/mentoring.jpg'
 import './FindMentor.css';
 import { AiOutlineSearch } from 'react-icons/ai'
+import Viewmore from './viewmore';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   search: {
@@ -48,6 +56,27 @@ const useStyles = makeStyles({
   //     // marginBottom: 0,
   // }
 });
+
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+
 
 const Mentor = (props) => {
   const classes = useStyles();
@@ -115,6 +144,24 @@ const Mentor = (props) => {
   };
 
 
+    const [mentors, setMentors] = useState([]);
+
+  const getMentors = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/mentors");
+      const jsonData = await response.json();
+      console.log(jsonData);
+      setMentors(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    getMentors();
+  }, []);
+
+
   return (
     <div className="background">
       <div className={classes.root}>
@@ -144,6 +191,26 @@ const Mentor = (props) => {
           <Button onClick={handleSearch} className={classes.searchButton}>Search</Button>
         </div>
 
+      <TableContainer style={{marginTop: '30px'}} component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell align="left">Name</StyledTableCell>
+            <StyledTableCell align="center">Email</StyledTableCell>
+            <StyledTableCell align="right">More Info</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {mentors.map((mentor) => (
+            <StyledTableRow >
+              <StyledTableCell align="left">{mentor.fname} {mentor.lname}</StyledTableCell>
+              <StyledTableCell align="center"> {mentor.email}</StyledTableCell>
+              <StyledTableCell align="right"> <Viewmore id={mentor.mentor_id}/></StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
 
       </div>
     </div>

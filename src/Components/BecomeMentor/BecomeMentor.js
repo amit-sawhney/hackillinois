@@ -85,6 +85,7 @@ const BecomeMentor = (props) => {
     const classes = useStyles();
     const [formOpen, setFormOpen] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [formData, setFormData] = useState([{}]);
 
     const [alg1, setAlg1] = useState(false);
     const [alg2, setAlg2] = useState(false);
@@ -169,100 +170,87 @@ const BecomeMentor = (props) => {
         setFormOpen(false);
     }
 
-    function createFormData(first, last, email, number, grade, years, bio, mathArray, chemArray, computerScienceArray, biologyArray, englishArray, foreignLanguage) {
-        var formData = {
-            firstName: first,
-            lastName: last,
-            email: email,
-            phoneNumber: number,
-            grade: grade,
-            tutoringYears: years,
-            personalBio: bio,
-            mathSubjects: mathArray,
-            chemSubjects: chemArray,
-            computerScienceSubjects: computerScienceArray,
-            biologySubjects: biologyArray,
-            englishSubjects: englishArray,
-            foreignLanguage: foreignLanguage,
+    const onSubmitForm = async(e) => {
+        e.preventDefault();
+        try {
+            setSubmit(true);
+            var fname = document.getElementById('first-name').value;
+            var lname = document.getElementById('last-name').value;
+            var email = document.getElementById('email').value;
+            var number = document.getElementById('phone-number').value;
+            var grade = document.getElementById('school-grade').value;
+            var years = document.getElementById('tutoring-years').value;
+            var bio = document.getElementById('personal-bio').value;
+            
+            var interestedSubjects = "";
+            if(alg1) interestedSubjects +="Algebra 1, ";
+            if(alg2) interestedSubjects +="Algebra 2, ";
+            if(preCalc) interestedSubjects +="Pre-Calculus, ";
+            if(calc1) interestedSubjects +="Calculus I, ";
+            if(calc2) interestedSubjects +="Calculus II, ";
+            if(calc3) interestedSubjects +="Calculus III, ";
+            if(linearAlg) interestedSubjects +="Linear Algebra, ";
+            if(difEq) interestedSubjects +="Differential Equations, ";
+            if(discrete) interestedSubjects +="Discrete Mathematics, ";
+
+            if(genChem) interestedSubjects +="General Chemistry, ";
+            if(oChem) interestedSubjects +="Organic Chemistry, ";
+            if(anChem) interestedSubjects +="Analytical Chemistry, ";
+            if(physChem) interestedSubjects +="Physical Chemistry, ";
+            if(chemLab) interestedSubjects +="Chem Lab Adivse, "; 
+    
+            if(java) interestedSubjects +="Java, ";
+            if(python) interestedSubjects +="Python, ";
+            if(c) interestedSubjects +="C/C++/C#, ";
+            if(js) interestedSubjects +="Javascript/jQuery, ";
+            if(webDev) interestedSubjects +="Web Development, ";
+            if(backend) interestedSubjects +="Backend Development, ";
+            if(algos) interestedSubjects +="Algorithms, ";
+            if(data) interestedSubjects +="Data Structures, ";
+            if(interview) interestedSubjects +="Interview Prep, ";
+    
+            if(genBio) interestedSubjects +="General Biology, ";
+            if(cellular) interestedSubjects +="Cellular Biology, ";
+            if(anatomical) interestedSubjects +="Anatomical Sciences, ";
+            if(ecology) interestedSubjects +="Ecology, ";
+            if(evolutionary) interestedSubjects +="Evolutionary Biology, ";
+            if(molecular) interestedSubjects +="Molecular Biology, ";
+            if(genetics) interestedSubjects +="Genetics, ";
+            if(bioChem) interestedSubjects +="Biochemistry, ";
+            if(bioPhysics) interestedSubjects +="Bio Physics, ";
+    
+            if(writing) interestedSubjects +="Writing Adivse, ";
+            if(shakespeare) interestedSubjects +="Shakespeare, ";
+            if(poetry) interestedSubjects +="Poetry, ";
+            if(nonfiction) interestedSubjects +="NonFiction, ";
+            if(fiction) interestedSubjects +="Fiction, ";
+            if(novel) interestedSubjects +="Novel, ";
+            if(drama) interestedSubjects +="Drama, ";
+    
+            if(spanish) interestedSubjects +="Spanish, ";
+            if(french) interestedSubjects +="French, ";
+            if(german) interestedSubjects +="German, ";
+            if(japanese) interestedSubjects +="Japanese, ";
+            if(mandarin) interestedSubjects +="Mandarin Chinese, ";
+            if(hindi) interestedSubjects +="Hindi, ";
+            if(englishLang) interestedSubjects +="English, ";
+            interestedSubjects = interestedSubjects.substring(0, interestedSubjects.length-2);
+
+            const response = await fetch("http://localhost:5000/mentors", {
+                method: "POST",
+                headers: {"Content-Type": "application/json" },
+                body: JSON.stringify({fname, lname, email, number, grade, years, bio, interestedSubjects})
+            });
+            console.log(response);
+            setSubmit(false);
+            setSuccess(true);
+        } catch(err){
+            console.error(err.message);
         }
-
-        return formData;
     }
 
-    const handleSubmit = e => {
-        setSubmit(true);
-        var firstName = document.getElementById('first-name').value;
-        var lastName = document.getElementById('last-name').value;
-        var email = document.getElementById('email').value;
-        var number = document.getElementById('phone-number').value;
-        var grade = document.getElementById('school-grade').value;
-        var years = document.getElementById('tutoring-years').value;
-        var bio = document.getElementById('personal-bio').value;
 
-        var mathArray = [];
-        if(alg1) mathArray.push("Algebra 1")
-        if(alg2) mathArray.push("Algebra 2");
-        if(preCalc) mathArray.push("Pre-Calculus");
-        if(calc1) mathArray.push("Calculus I");
-        if(calc2) mathArray.push("Calculus II");
-        if(calc3) mathArray.push("Calculus III");
-        if(linearAlg) mathArray.push("Linear Algebra");
-        if(difEq) mathArray.push("Differential Equations");
-        if(discrete) mathArray.push("Discrete Mathematics");
-
-        var chemArray = [];
-        if(genChem) chemArray.push("General Chemistry");
-        if(oChem) chemArray.push("Organic Chemistry");
-        if(anChem) chemArray.push("Analytical Chemistry");
-        if(physChem) chemArray.push("Physical Chemistry");
-        if(chemLab) chemArray.push("Chem Lab Adivse"); 
-
-        var computerScienceArray = [];
-        if(java) computerScienceArray.push("Java");
-        if(python) computerScienceArray.push("Python");
-        if(c) computerScienceArray.push("C/C++/C#");
-        if(js) computerScienceArray.push("Javascript/jQuery");
-        if(webDev) computerScienceArray.push("Web Development");
-        if(backend) computerScienceArray.push("Backend Development");
-        if(algos) computerScienceArray.push("Algorithms");
-        if(data) computerScienceArray.push("Data Structures");
-        if(interview) computerScienceArray.push("Interview Prep");
-
-        var biologyArray = [];
-        if(genBio) biologyArray.push("General Biology");
-        if(cellular) biologyArray.push("Cellular Biology");
-        if(anatomical) biologyArray.push("Anatomical Sciences");
-        if(ecology) biologyArray.push("Ecology");
-        if(evolutionary) biologyArray.push("Evolutionary Biology");
-        if(molecular) biologyArray.push("Molecular Biology");
-        if(genetics) biologyArray.push("Genetics");
-        if(bioChem) biologyArray.push("Biochemistry");
-        if(bioPhysics) biologyArray.push("Bio Physics");
-
-        var englishArray = [];
-        if(writing) englishArray.push("Writing Adivse");
-        if(shakespeare) englishArray.push("Shakespeare");
-        if(poetry) englishArray.push("Poetry");
-        if(nonfiction) englishArray.push("NonFiction");
-        if(fiction) englishArray.push("Fiction");
-        if(novel) englishArray.push("Novel");
-        if(drama) englishArray.push("Drama");
-
-        var foreignLanguage = [];
-        if(spanish) foreignLanguage.push("Spanish");
-        if(french) foreignLanguage.push("French");
-        if(german) foreignLanguage.push("German");
-        if(japanese) foreignLanguage.push("Japanese");
-        if(mandarin) foreignLanguage.push("Mandarin Chinese");
-        if(hindi) foreignLanguage.push("Hindi");
-        if(englishLang) foreignLanguage.push("English");
-
-        var formData = createFormData(firstName, lastName, email, number, grade, years, bio, mathArray, chemArray, computerScienceArray, biologyArray, englishArray, foreignLanguage);
-        console.log(formData);
-        setSubmit(false);
-        setSuccess(true);
-
-    }
+    
 
     return (
         <div className={classes.root}>
@@ -671,7 +659,7 @@ const BecomeMentor = (props) => {
                             </AccordionDetails>
                         </Accordion>
                     </div>
-                    <Button onClick={handleSubmit} className={classes.submitButton}>Submit</Button>
+                    <Button onClick={onSubmitForm} className={classes.submitButton}>Submit</Button>
                 </div>
             </FormControl >
             {/* </Paper> */}
