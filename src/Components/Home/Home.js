@@ -33,10 +33,20 @@ const Home = (props) => {
             series of courses with a large potential for mass expansion. On the search component, finding a mentor utilizes a
             personally designed algorithm that takes the search queries and matches and ranks mentors according to the queries. This
           is visible within the table's color ranking system that displays green, yellow, and red based on the quality of the match. </p>
+          <div style={{fontSize: '50px', textAlign: 'center', paddingTop: '11%'}}>A Look to the Future</div>
+         
+          <div className="vision">As the COVID-19 pandemic continues to rage on across the world, every facet of our life is continually being
+            forced to adapt. Students Meet provides a framework that can allow students to collaborate in a socially distanced
+            world. What is currently a website for class help could easily expand to provide mentorship across every part of our
+            lives. Coupling our website with more advanced technologies, such as machine learning, in the future could allow quicker
+            and more expansive collaboration. Additionally, once people have met a mentor, a chatting or blogging system could easily
+            be added to the website in the future to further bolster communication and the exchange of ideas. Whether it is preparing
+            for the LSAT or learning about local activist groups, Students Meet has the ability to grow into a website that can positively
+            influence just about anyone!</div>
+          <p></p>
           </div>
           <div className="image">
           </div>
-          <h3>As the COVID-19 pandemic continues to rage on across the world, every facet of our life is continually being forced to adapt. Students Meet provides a framework that can allow students to collaborate in a socially distanced world. What is currently a website for class help could easily expand to provide mentorship across every part of our lives. Coupling our website with more advanced technologies, such as machine learning, in the future could allow quicker and more expansive collaboration. Additionally, once people have met a mentor, a chatting or blogging system could easily be added to the website in the future to further bolster communication and the exchange of ideas. Whether it is preparing for the LSAT or learning about local activist groups, Students Meet has the ability to grow into a website that can positively influence just about anyone!</h3>
         </div>
       </div>
     </>
