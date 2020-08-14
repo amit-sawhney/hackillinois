@@ -131,7 +131,7 @@ const Navbar = (props) => {
                 <ScrollToColor homeState={home}>
                     <AppBar elevation={0} className={classes.root}>
                         <Toolbar className={classes.navbar}>
-                            <Link onClick={handleHome} className={classes.appName} to="/">Mentors Meet</Link>
+                            <Link onClick={handleHome} className={classes.appName} to="/">Students Meet</Link>
                             <Link onClick={handleLeave} className={classes.navItem} to="/findmentor">Find a Mentor</Link>
                             <Link onClick={handleLeave} className={classes.navItem} to="/becomementor">Become a mentor</Link>
                             <Link onClick={handleLeave} className={classes.navItem} to="/contact">Contact</Link>
