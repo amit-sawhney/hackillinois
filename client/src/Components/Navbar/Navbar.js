@@ -142,7 +142,7 @@ const Navbar = (props) => {
             ) : (
                     <AppBar elevation={0} className={classes.root1}>
                         <Toolbar className={classes.navbar}>
-                            <Link onClick={handleHome} className={classes.appName1} to="/">Mentors Meet</Link>
+                            <Link onClick={handleHome} className={classes.appName1} to="/">Students Meet</Link>
                             <Link onClick={handleLeave} className={classes.navItem1} to="/findmentor">Find a Mentor</Link>
                             <Link onClick={handleLeave} className={classes.navItem1} to="/becomementor">Become a mentor</Link>
                             <Link onClick={handleLeave} className={classes.navItem1} to="/contact">Contact</Link>
