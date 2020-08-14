@@ -26,9 +26,42 @@
 }
 
 .below p{
+    padding-top: 5%;
     position: absolute;
     top: 118%;
     width: 45%;
+}
+
+.about{
+    height: 30vh;
+    width: 100%;;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #00B4DB;
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB); 
+    background: linear-gradient(to right, #0083B0, #00B4DB);
+    position: absolute;
+    top: 170%;
+}
+.about p{
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    width: 80%;
+    margin: auto;
+    padding-left: 10%;
+}
+
+ 
+
+
+.aboutH{
+    padding: 25px;
+    font-size: 50px;
+    font-weight: 600;
+    color: #fff;
 }
 
 .image{
@@ -44,6 +77,7 @@
 }
 
 .below h1{
+    padding-top: 20px;
     position: absolute;
     left: 25%;
     top: 105%;
