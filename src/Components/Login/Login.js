@@ -75,7 +75,7 @@ const Login = (props) => {
               </form> <br /><br /><br /><br /><br />
               <div className={classes.infoText}>
                 <p>*For purposes of this Hack, the login does not lead anywhere, there is a temp account with</p>
-                <p>Username: test and Password: test</p>
+                <p>Username: test and Password: 123</p>
                 <p>This takes the user to a Dashboard blank page that will allow them to edit their mentor information, potentially read messages and manage basic tools*</p>
               </div>
             </div>

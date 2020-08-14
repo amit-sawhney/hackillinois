@@ -170,6 +170,63 @@ const BecomeMentor = (props) => {
         setFormOpen(false);
     }
 
+    const resetForm = () => {
+        document.getElementById('first-name').value = "";
+        document.getElementById('last-name').value = "";
+        document.getElementById('email').value= "";
+        document.getElementById('phone-number').value = "";
+        document.getElementById('school-grade').value = "";
+        document.getElementById('tutoring-years').value = "";
+        document.getElementById('personal-bio').value = "";
+        setAlg1(false);
+        setAlg2(false);
+        setPreCalc(false);
+        setCalc1(false);
+        setCalc2(false);
+        setCalc3(false);
+        setLinearAlg(false);
+        setDifEq(false);
+        setDiscrete(false);
+        setGenChem(false);
+        setOChem(false);
+        setAnChem(false);
+        setPhysChem(false);
+        setChemLab(false);
+        setJava(false);
+        setPython(false);
+        setC(false);
+        setJS(false);
+        setWebDev(false);
+        setBackend(false);
+        setAlgos(false);
+        setData(false);
+        setInterview(false);
+        setGenBio(false);
+        setCellular(false);
+        setAnatomical(false);
+        setEcology(false);
+        setEvolutionary(false);
+        setMolecular(false);
+        setGenetics(false);
+        setBioChem(false);
+        setBioPhysics(false);
+        setWriting(false);
+        setShakespeare(false);
+        setPoetry(false);
+        setNonFiction(false);
+        setFiction(false);
+        setNovel(false);
+        setNovel(false);
+        setDrama(false);
+        setSpanish(false);
+        setFrench(false);
+        setGerman(false);
+        setJapanese(false);
+        setMandarin(false);
+        setHindi(false);
+        setEnglishLang(false);
+    }
+
     const onSubmitForm = async(e) => {
         e.preventDefault();
         try {
@@ -243,6 +300,7 @@ const BecomeMentor = (props) => {
             });
             console.log(response);
             setSubmit(false);
+            resetForm();
             setSuccess(true);
         } catch(err){
             console.error(err.message);
