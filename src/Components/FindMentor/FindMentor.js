@@ -81,6 +81,8 @@ const StyledTableRow = withStyles((theme) => ({
 const Mentor = (props) => {
   const classes = useStyles();
   const [tags, setTags] = useState([]);
+  const [tableMentors, setTableMentors] = useState([]);
+  const [mentors, setMentors] = useState([]);
 
   const searchOptions = [
     { name: "Algebra 1" },
@@ -132,7 +134,22 @@ const Mentor = (props) => {
   ]
 
   const handleSearch = e => {
-    console.log(tags)
+    var searchQueries = removeDuplicates(tags);
+    console.log(searchQueries);
+
+    var temp = [];
+
+    for(var i = 0; i < mentors.length; i++) {
+      var mentor = mentors[i];
+      for(var j = 0; j < searchQueries.length; j++) {
+        if(mentor.interestedSubjects.indexOf(searchQueries[j]) === -1) {
+          break;
+        }
+      }
+      temp.push(mentor);
+    }
+
+    setTableMentors(temp);
   }
 
   const addTags = (event, values) => {
@@ -140,11 +157,14 @@ const Mentor = (props) => {
   }
 
   function removeDuplicates(array) {
-    return array.filter((a, b) => array.indexOf(a) === b)
+    var temp = [];
+    for(var i = 0; i < array.length; i++) {
+      temp.push(array[i].name);
+    }
+    return temp.filter((a, b) => temp.indexOf(a) === b)
   };
 
 
-    const [mentors, setMentors] = useState([]);
 
   const getMentors = async () => {
     try {
@@ -174,7 +194,7 @@ const Mentor = (props) => {
           options={searchOptions}
           getOptionLabel={(option) => option.name}
           className={classes.search}
-          onClick={addTags}
+          onChange={addTags}
           renderInput={(params) => (
 
             <TextField
@@ -201,7 +221,7 @@ const Mentor = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {mentors.map((mentor) => (
+          {tableMentors.map((mentor) => (
             <StyledTableRow >
               <StyledTableCell align="left">{mentor.fname} {mentor.lname}</StyledTableCell>
               <StyledTableCell align="center"> {mentor.email}</StyledTableCell>
