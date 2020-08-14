@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import sortMentors from '../Helpers/MentorAlgorithm';
 
 const useStyles = makeStyles({
   search: {
@@ -137,21 +138,12 @@ const Mentor = (props) => {
     var searchQueries = removeDuplicates(tags);
     console.log(searchQueries);
 
+    var mentorRankObject = sortMentors(mentors, searchQueries);
+
     var temp = [];
 
-    var mentorFlag = false;
-    
-    for(var i = 0; i < mentors.length; i++) {
-      var mentor = mentors[i];
-      for(var j = 0; j < searchQueries.length; j++) {
-        if(mentor.interestedsubjects.indexOf(searchQueries[j]) === -1) {
-          mentorFlag = true;
-          break;
-        }
-      }
-      if(!mentorFlag) {
-        temp.push(mentor);
-      }
+    for(var i = 0; i < mentorRankObject.length; i++) {
+      temp.push(mentorRankObject[i].mentor);
     }
 
     setTableMentors(temp);
