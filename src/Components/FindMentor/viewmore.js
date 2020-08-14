@@ -13,12 +13,14 @@ export default function Viewmore(props) {
           const jsonData = await response.json();
           console.log(jsonData);
           setMentors(jsonData);
+
         } catch (err) {
           console.error(err.message);
         }
       }
 
     const [mentors, setMentors] = useState("");
+    
 
       useEffect(() => {
         getMentors();
@@ -32,6 +34,25 @@ export default function Viewmore(props) {
     const handleClose = () => {
         setOpen(false);
       };
+
+    var gradeChange;
+    if(mentors.grade == 9){
+        gradeChange = "High School Freshman";
+    }else if(mentors.grade == 10){
+        gradeChange = "High School Sophomore";
+    }else if(mentors.grade == 11){
+        gradeChange = "High School Junior";
+    }else if(mentors.grade == 12){
+        gradeChange = "High School Senior";
+    }else if(mentors.grade == 13){
+        gradeChange = "College Freshman";
+    }else if(mentors.grade == 14){
+        gradeChange = "College Sophomore";
+    }else if(mentors.grade == 15){
+        gradeChange = "College Junior";
+    }else if(mentors.grade == 16){
+        gradeChange = "College Senior";
+    }
     
       return (
         <div>
@@ -51,7 +72,13 @@ export default function Viewmore(props) {
             </div>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                {mentors.fname}
+                About me: {mentors.bio}
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                {gradeChange}
+              </DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                {mentors.interestedsubjects}
               </DialogContentText>
             </DialogContent>
             <DialogActions>

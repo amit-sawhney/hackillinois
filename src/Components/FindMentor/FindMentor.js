@@ -139,14 +139,19 @@ const Mentor = (props) => {
 
     var temp = [];
 
+    var mentorFlag = false;
+    
     for(var i = 0; i < mentors.length; i++) {
       var mentor = mentors[i];
       for(var j = 0; j < searchQueries.length; j++) {
-        if(mentor.interestedSubjects.indexOf(searchQueries[j]) === -1) {
+        if(mentor.interestedsubjects.indexOf(searchQueries[j]) === -1) {
+          mentorFlag = true;
           break;
         }
       }
-      temp.push(mentor);
+      if(!mentorFlag) {
+        temp.push(mentor);
+      }
     }
 
     setTableMentors(temp);
