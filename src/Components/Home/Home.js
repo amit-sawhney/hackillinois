@@ -25,12 +25,15 @@ const Home = (props) => {
           streamlines the process of getting help while taking a portion of the burden of teaching off of teachers who are already 
           overburdened due to the virtual environment.
           </p>
+          <div className="about">
+            <div className="aboutH">About the Project</div>
           <p>Students Meet's tech stack includes PERN Stack (PostgreSQL, Express, React Native, Node.js), Material UI, React Router, 
           and React Icons. The prime functionality is broken into two main parts: Finding a mentor and Becoming a mentor. By creating 
           a database from scratch, we were able to create a small potential of what Students Meet could be. The form includes a diverse 
           series of courses with a large potential for mass expansion. On the search component, finding a mentor utilizes a 
           personally designed algorithm that takes the search queries and matches and ranks mentors according to the queries. This
           is visible within the table's color ranking system that displays green, yellow, and red based on the quality of the match. </p>
+          </div>
           <div className="image">
           </div>
         </div>
