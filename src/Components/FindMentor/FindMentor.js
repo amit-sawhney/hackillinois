@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import sortMentors from '../Helpers/MentorAlgorithm';
 import { FaCheck } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 
 const useStyles = makeStyles({
   search: {
@@ -275,6 +276,7 @@ const Mentor = (props) => {
                               <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                               <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
                               <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                              <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                             </StyledTableRow>
                           ) : (
                               person.match >= 50 ? (
@@ -282,12 +284,14 @@ const Mentor = (props) => {
                                   <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                                   <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
                                   <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                  <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                                 </StyledTableRow>
                               ) : (
                                   <StyledTableRow className={classes.badMatch}>
                                     <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                                     <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
                                     <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                    <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                                   </StyledTableRow>
                                 )
                             )
