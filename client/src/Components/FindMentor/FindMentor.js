@@ -251,7 +251,7 @@ const Mentor = (props) => {
         {
           searched ? (
             tableMentors.length !== 0 ? (
-              <TableContainer style={{ marginTop: '30px', paddingBottom:'5%' }} component={Paper}>
+              <TableContainer style={{ marginTop: '30px' }} component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                   <TableHead>
                     <TableRow>
