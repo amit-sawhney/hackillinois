@@ -293,7 +293,7 @@ const BecomeMentor = (props) => {
             if(englishLang) interestedSubjects +="English, ";
             interestedSubjects = interestedSubjects.substring(0, interestedSubjects.length-2);
 
-            const response = await fetch("http://localhost:5000/mentors", {
+            const response = await fetch('/mentors', {
                 method: "POST",
                 headers: {"Content-Type": "application/json" },
                 body: JSON.stringify({fname, lname, email, number, grade, years, bio, interestedSubjects})

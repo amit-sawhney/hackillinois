@@ -206,7 +206,7 @@ const Mentor = (props) => {
 
   const getMentors = async () => {
     try {
-      const response = await fetch("http://localhost:5000/mentors");
+      const response = await fetch("/mentors");
       const jsonData = await response.json();
       console.log(jsonData);
       setMentors(jsonData);
@@ -257,7 +257,7 @@ const Mentor = (props) => {
                     <TableRow>
                       <StyledTableCell align="left">Name</StyledTableCell>
                       <StyledTableCell align="center">Email</StyledTableCell>
-                      <StyledTableCell align="right">More Info</StyledTableCell>
+                      <StyledTableCell align="center">More Info</StyledTableCell>
                       <StyledTableCell align="right">Perfect Match?</StyledTableCell>
                     </TableRow>
                   </TableHead>
@@ -267,7 +267,7 @@ const Mentor = (props) => {
                         <StyledTableRow className={classes.perfectMatch}>
                           <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                           <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
-                          <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                          <StyledTableCell align="center"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
                           <StyledTableCell align="right"><FaCheck style={{color: 'green'}} size={40} /></StyledTableCell>
                         </StyledTableRow>
                       ) : (
@@ -275,7 +275,7 @@ const Mentor = (props) => {
                             <StyledTableRow className={classes.perfectMatch}>
                               <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                               <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
-                              <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                              <StyledTableCell align="center"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
                               <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                             </StyledTableRow>
                           ) : (
@@ -283,14 +283,14 @@ const Mentor = (props) => {
                                 <StyledTableRow className={classes.closeMatch}>
                                   <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                                   <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
-                                  <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                  <StyledTableCell align="center"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
                                   <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                                 </StyledTableRow>
                               ) : (
                                   <StyledTableRow className={classes.badMatch}>
                                     <StyledTableCell align="left">{person.mentor.fname} {person.mentor.lname}</StyledTableCell>
                                     <StyledTableCell align="center"> {person.mentor.email}</StyledTableCell>
-                                    <StyledTableCell align="right"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
+                                    <StyledTableCell align="center"> <Viewmore id={person.mentor.mentor_id} /></StyledTableCell>
                                     <StyledTableCell align="right"><FaTimes style={{color: 'red'}} size={40} /></StyledTableCell>
                                   </StyledTableRow>
                                 )

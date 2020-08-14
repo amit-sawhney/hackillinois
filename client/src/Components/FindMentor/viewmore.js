@@ -12,7 +12,7 @@ import "./view.css";
 export default function Viewmore(props) {
     const getMentors = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/mentors/${props.id}`);
+            const response = await fetch(`/mentors/${props.id}`);
             const jsonData = await response.json();
             console.log(jsonData);
             setMentors(jsonData);
