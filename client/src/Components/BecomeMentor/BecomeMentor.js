@@ -299,7 +299,7 @@ const BecomeMentor = (props) => {
                 body: JSON.stringify({fname, lname, email, number, grade, years, bio, interestedSubjects})
             });
             console.log(response);
-            setSubmit(false);
+            setSubmit(false); 
             resetForm();
             setSuccess(true);
         } catch(err){
