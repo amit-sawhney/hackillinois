@@ -111,7 +111,7 @@ const useStyles = makeStyles({
 
 const Navbar = (props) => {
     const classes = useStyles();
-    const [home, setHome] = useState(window.location.href.length < 35);
+    const [home, setHome] = useState(window.location.href.length < 36);
 
     const handleScroll = (e) => {
         document.getElementById("navbar").setAttribute(classes.scrollNavbar);
