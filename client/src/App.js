@@ -10,6 +10,7 @@ import Navbar from './Components/Navbar/Navbar';
 import {helmet, Helmet} from 'react-helmet';
 import Footer from './Components/Footer/Footer'
 
+
 const useStyles = makeStyles({
   root: {
     margin: 'auto',
